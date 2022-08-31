@@ -1,10 +1,19 @@
 import pygame as pg
+import random
 
 def init():
     global screen
- 
+    global prompt
+    f = open("labels.txt","r")
+    labels = f.readlines()
+    f.close()
+    prompt = random.choice(labels).capitalize().replace('_', ' ')
     pg.init()
-    screen = pg.display.set_mode((400, 400))
+    screen = pg.display.set_mode((800, 800))
+    pg.font.init()
+    my_font = pg.font.SysFont('Comic Sans MS', 30)
+    text_surface = my_font.render(prompt[0:len(prompt)-1], False, (255, 255, 255))
+    screen.blit(text_surface, (10,10))
     mainloop()
  
  
@@ -16,7 +25,6 @@ color = (255, 255, 255)
  
 def draw(event):
     global drawing, last_pos, w
- 
     if event.type == pg.MOUSEMOTION:
         if (drawing):
             mouse_position = pg.mouse.get_pos()
@@ -43,6 +51,8 @@ def mainloop():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_s:
                     pg.image.save(screen, "image.png")
+                elif event.key == pg.K_r:
+                    init()
             draw(event)
         pg.display.flip()
     pg.quit()
