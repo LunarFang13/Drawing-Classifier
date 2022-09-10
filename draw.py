@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+import drawingtoarray
 
 def init():
     global screen
@@ -9,18 +10,22 @@ def init():
     f.close()
     prompt = random.choice(labels).capitalize().replace('_', ' ')
     pg.init()
-    screen = pg.display.set_mode((800, 800))
+    screen = pg.display.set_mode((800,800))
+    bgcolor = (255,255,255)
+    screen.fill(bgcolor)
     pg.font.init()
-    my_font = pg.font.SysFont('Comic Sans MS', 30)
-    text_surface = my_font.render(prompt[0:len(prompt)-1], False, (255, 255, 255))
-    screen.blit(text_surface, (10,10))
+    my_font = pg.font.SysFont('Comic Sans MS', 25)
+    text_surface = my_font.render(prompt[0:len(prompt)-1], False, (0,0,0))
+    screen.blit(text_surface, (350,10))
+    pg.draw.rect(screen, (0,0,0), pg.Rect(50, 50, 700, 700))
     mainloop()
  
  
 drawing = False
 last_pos = None
-w = 1
-color = (255, 255, 255)
+w = 10
+drawcolor = (255, 255, 255)
+
  
  
 def draw(event):
@@ -29,7 +34,7 @@ def draw(event):
         if (drawing):
             mouse_position = pg.mouse.get_pos()
             if last_pos is not None:
-                pg.draw.line(screen, color, last_pos, mouse_position, w)
+                pg.draw.line(screen, drawcolor, last_pos, mouse_position, w)
             last_pos = mouse_position
     elif event.type == pg.MOUSEBUTTONUP:
         mouse_position = (0, 0)
@@ -51,6 +56,7 @@ def mainloop():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_s:
                     pg.image.save(screen, "image.png")
+                    drawingtoarray.dta()
                 elif event.key == pg.K_r:
                     init()
             draw(event)
