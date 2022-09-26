@@ -28,10 +28,19 @@ CREATE TABLE `images` (
   `img_array` varchar(6300) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`imgid`),
-  KEY `pid_idx` (`author`),
-  CONSTRAINT `author_pid` FOREIGN KEY (`author`) REFERENCES `authentication` (`pid`)
+  KEY `imgpid_idx` (`author`),
+  CONSTRAINT `imgpid` FOREIGN KEY (`author`) REFERENCES `authentication` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -42,4 +51,4 @@ CREATE TABLE `images` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-26 20:58:09
+-- Dump completed on 2022-09-26 21:57:38
